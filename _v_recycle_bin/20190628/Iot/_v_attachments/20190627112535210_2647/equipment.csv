@@ -2,6 +2,7 @@
 id,id,bigint(20),20,,X,,X
 IMEI,IMEI,varchar(50),50,,,,
 dev_id,设备ID,varchar(50),50,,,,
+series_no,序列号,varchar(50),50,,,,
 type_name,产品类型,varchar(200),200,,,,
 dev_model,设备型号,varchar(200),200,,,,
 product_id,产品ID,bigint(20),20,,,X,
