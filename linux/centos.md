@@ -19,12 +19,50 @@
 6. yum install vim
 
 7. 备份默认源
-
-   mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-
 8. 进入到/etc/yum.repos.d/目录：
+   ```shell
    cd /etc/yum.repos.d/
+   mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
+   wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+    yum clean all
+   yum makecache
+   #安装epel源
+   yum list | grep epel-release
+   yum install -y epel-release
+   wget -O /etc/yum.repos.d/epel-7.repo http://mirrors.aliyun.com/repo/epel-7.repo
+   yum clean all
+   yum makecache
+   #
+   yum repolist enabled
+   yum repolist all
+   #安装docker
+   yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+   yum install -y yum-utils device-mapper-persistent-data lvm2
+   yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+   yum makecache fast
+   yum -y install docker-ce
+   systemctl start docker
+   systemctl enable docker
+   docker version
+   ```
 
+   docker加速器
+   `vim /etc/docker/daemon.json`
+
+{
+  "registry-mirrors": ["https://czcjm3w6.mirror.aliyuncs.com"]
+}
+systemctl daemon-reload
+systemctl restart docker
 9. 添加源
    wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 

@@ -3631,6 +3631,9 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service 
 6. 停止docker
 systemctl stop docker
 
+{
+  "registry-mirrors": ["https://czcjm3w6.mirror.aliyuncs.com"]
+}
 解决方法：
 方法一：
 
