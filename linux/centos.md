@@ -2,29 +2,37 @@
 
 # 1. Centos 7.2
 
-1. 设置允许连接网络： vi /etc/sysconfig/network-scripts/ifcfg-enp0s3  
+1. 设置允许连接网络： 
 
-2. ONBOOT=yes
-
-3. service network restart
-
-4. 安装net-tools：
-
+   ```shell
+   vi /etc/sysconfig/network-scripts/ifcfg-enp0s3  
+   #编辑配置文件
+   BOOTPROTO=static
+   ONBOOT=yes
+   
+   IPADDR=172.16.40.173
+   NETMASK=255.255.255.0
+   GATEWAY=172.16.40.1
+   DNS1=114.114.114.114
+   #重启service
+   service network restart
+   ```
+   
+2. 安装软件
+   ```shell
    yum install net-tools
-
-5. 装wget
-
    yum install wget
+   yum install vim
+   yum install ntpdate
+   yum -y install lrzsz
+   ```
 
-6. yum install vim
-
-7. 备份默认源
-8. 进入到/etc/yum.repos.d/目录：
+3. 换源 进入到/etc/yum.repos.d/目录：
    ```shell
    cd /etc/yum.repos.d/
    mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
    wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-    yum clean all
+   yum clean all
    yum makecache
    #安装epel源
    yum list | grep epel-release
@@ -35,54 +43,24 @@
    #
    yum repolist enabled
    yum repolist all
-   #安装docker
-   yum remove docker \
-                  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-selinux \
-                  docker-engine-selinux \
-                  docker-engine
-   yum install -y yum-utils device-mapper-persistent-data lvm2
-   yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-   yum makecache fast
-   yum -y install docker-ce
-   systemctl start docker
-   systemctl enable docker
-   docker version
+   
    ```
 
-   docker加速器
-   `vim /etc/docker/daemon.json`
+4. 修改时间
+  
+      ```shell
+      #改时间
+      ntpdate 218.186.3.36
+   timedatectl set-timezone Asia/Shanghai
+      
+      0 */2 * * * /usr/sbin/ntpdate -u ntp.api.bz > /dev/null 2>&1; /sbin/hwclock -w
+      #改时区
+      ```
 
-{
-  "registry-mirrors": ["https://czcjm3w6.mirror.aliyuncs.com"]
-}
-systemctl daemon-reload
-systemctl restart docker
-9. 添加源
-   wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
-
-10. 运行一下命令生成缓存:
-   yum clean all
-   yum makecache
-
-```shell
-#改时间
-ntpdate 218.186.3.36
-timedatectl set-timezone Asia/Shanghai
-
-0 */2 * * * /usr/sbin/ntpdate -u ntp.api.bz > /dev/null 2>&1; /sbin/hwclock -w
-#改时区
-```
 
 # 2. 指令
 
 ```shell
-
 #添加一个user的新账号
 groupadd user
 tail /etc/group
@@ -117,44 +95,6 @@ netstat -pnt |grep :3306 |wc
 #查看某一端口的连接客户端IP 比如3306端口
 netstat -anp |grep 3306
 netstat -an 查看网络端口 
-
-
-#tomcat
-wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz
-tar -zxvf apache-tomcat-9.0.20.tar.gz
-
-sh /home/software/apache-tomcat-9.0.20/bin/startup.sh
-sh /home/software/apache-tomcat-9.0.20/bin/shutdown.sh
-ps -ef | grep java
-
-kill -9 1858
-lsof -i:8080
-#netstat -p | grep 8080
-vi /home/software/apache-tomcat-9.0.20/conf/server.xml
-tail -100 /home/software/apache-tomcat-9.0.20/logs/catalina.out
-
-
-mvn spring-boot:run
-mvn install:install-file -Dfile=/home/api-client-1.0.0.jar -DgroupId=org.huawei -DartifactId=api-jar -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=E:\workspaces\OceanConnect_Java_SDK_Demo\lib\api-client-1.0.0.jar -DgroupId=org.huawei -DartifactId=api-jar -Dversion=1.0 -Dpackaging=jar
-
-
-
-
-#jdk
-wget https://download.oracle.com/otn/java/jdk/8u211-b12/478a62b7d4e34b78b671c754eaaf38ab/jdk-8u211-linux-x64.tar.gz?AuthParam=1558042901_134f6c4f31ff682567fbd19dbbf85650
-mv jdk-8u211-linux-x64.tar.gz?AuthParam=1558042901_134f6c4f31ff682567fbd19dbbf85650  jdk1.8.tar.gz
-tar -zxvf jdk1.8.tar.gz
-vi /etc/profile
-#添加
-export JAVA_HOME=/home/software/jdk1.8.0_211
-export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
-export PATH=$JAVA_HOME/bin:$PATH
-
-wget https://repo.mysql.com//mysql80-community-release-el7-3.noarch.rpm
-rpm -ivh mysql80-community-release-el7-3.noarch.rpm
-yum install mysql mysql-server -y
-
 
 #查看文件大小
 du -h ftp
@@ -232,14 +172,18 @@ sz
     
 16. 改字符集
 
-17. ```
+    ```
     show VARIABLES like 'character%';
     修改my.cnf配置文件（mysql配置文件）
     character_set_server = utf8 #设置字符集
     
+    
+    wget https://repo.mysql.com//mysql80-community-release-el7-3.noarch.rpm
+    rpm -ivh mysql80-community-release-el7-3.noarch.rpm
+    yum install mysql mysql-server -y
     ```
 
-##使用
+## 3.1. 使用
 1.service mysqld start
 2.mysql -uroot -p123456
 3.show databases;
@@ -247,28 +191,70 @@ sz
 5.show tables;
 6.exit
 
-#jdk
-1.cd /usr/local
-2.mkdir java
-   cd /usr/local/java   
-3.yum install tar
-   tar -zxvf jdk1.8.tar.gz
-4.mv jdk1.8 jdk
-   vim /etc/profile
+
+
+# 4. tomcat
 
 ```shell
-JAVA_HOME=/usr/local/java/jdk
-PATH=$JAVA_HOME/bin:$PATH
-CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar
-export PATH JAVA_HOME CLASSPATH
-source /etc/profile
+#tomcat
+wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz
+tar -zxvf apache-tomcat-9.0.20.tar.gz
+
+sh /home/software/apache-tomcat-9.0.20/bin/startup.sh
+sh /home/software/apache-tomcat-9.0.20/bin/shutdown.sh
+ps -ef | grep java
+
+kill -9 1858
+lsof -i:8080
+#netstat -p | grep 8080
+vi /home/software/apache-tomcat-9.0.20/conf/server.xml
+tail -100 /home/software/apache-tomcat-9.0.20/logs/catalina.out
+
+
+mvn spring-boot:run
+#mvn install:install-file -Dfile=/home/api-client-1.0.0.jar -DgroupId=org.huawei -DartifactId=api-jar -Dversion=1.0 -Dpackaging=jar
+#mvn install:install-file -Dfile=E:\workspaces\OceanConnect_Java_SDK_Demo\lib\api-client-1.0.0.jar -DgroupId=org.huawei -DartifactId=api-jar -Dversion=1.0 -Dpackaging=jar
 ```
 
 
 
 
 
-# 4. kafka
+# 5. jdk
+1.
+
+```shell
+cd /usr/local
+mkdir java
+cd /usr/local/java   
+yum install tar
+tar -zxvf jdk1.8.tar.gz
+mv jdk1.8 jdk
+vim /etc/profile
+JAVA_HOME=/usr/local/java/jdk
+PATH=$JAVA_HOME/bin:$PATH
+CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar
+export PATH JAVA_HOME CLASSPATH
+source /etc/profile
+
+
+#jdk
+wget https://download.oracle.com/otn/java/jdk/8u211-b12/478a62b7d4e34b78b671c754eaaf38ab/jdk-8u211-linux-x64.tar.gz?AuthParam=1558042901_134f6c4f31ff682567fbd19dbbf85650
+mv jdk-8u211-linux-x64.tar.gz?AuthParam=1558042901_134f6c4f31ff682567fbd19dbbf85650  jdk1.8.tar.gz
+tar -zxvf jdk1.8.tar.gz
+vi /etc/profile
+#添加
+export JAVA_HOME=/home/software/jdk1.8.0_211
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/jre/lib/rt.jar
+export PATH=$JAVA_HOME/bin:$PATH
+
+```
+
+
+
+
+
+# 6. kafka
 1. wget http://apache.fayea.com/kafka/1.1.0/kafka_2.12-1.1.0.tgz
    /usr/local 路径下
 2. 解压tar -zxvf kafka_2.12-1.1.0.tgz
@@ -282,7 +268,7 @@ vim /usr/local/kafka/config/server.properties
 4. 对外开放 9092端口
   iptables -l INPUT 1 -p tcp --dport 9092 -j ACCEPT
 
-## 4.1. 使用
+## 6.1. 使用
 
 
 1. 启动Zookeeper服务器
@@ -360,4 +346,132 @@ schtasks /create /tn "shutdown" /tr "D:\timetask\shutdown.bat" /sc DAILY /st 16:
 schtasks /create /tn "vmstart" /tr "D:\timetask\vmstart.bat" /sc DAILY /st 08:33
 schtasks /create /tn "vmsuspend" /tr "D:\timetask\vmsuspend.bat" /sc DAILY /st 16:58
 ```
+# 7. docker
 
+## 7.1. Docker
+```shell
+#安装docker
+   yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+   yum install -y yum-utils device-mapper-persistent-data lvm2
+   yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+   yum makecache fast
+   yum -y install docker-ce
+   #配置docker加速器
+   vim /etc/docker/daemon.json
+   #编辑json文件
+   {
+    "registry-mirrors": ["https://czcjm3w6.mirror.aliyuncs.com"]
+   }
+   systemctl daemon-reload
+   systemctl start docker
+   systemctl enable docker
+   docker version
+```
+
+```shell
+#忽略 安装Docker维护的版本
+sudo apt-get install -y curl
+curl -sSL https://get.docker.com/ubuntu/ |sudo sh
+docker run ubuntu echo 'Hello world'
+
+使用非root用户：
+sudo groupadd docker
+sudo gpasswd -a ${USER} docker
+sudo service docker restart 
+```
+## 7.2. docker命令
+docker images  **--no-trunc**显示完整的镜像信息
+docker pull tomcat:latest
+docker rmi -f $(docker images -qa) 批量删除
+docker run -it {id/name} --name=mycentos0115 启动式交互
+docker run -d {id/name} 后台运行容器
+docker ps
+ctrl+P+Q
+docker attach {name}#附加到交互式容器 重新进入
+docker start 容器ID/name
+
+docker ps -qa | xargs docker rm 删除多个容器
+docker rm {docker ps -qa}
+#查看容器日志
+docker logs [-f] [-t] [--tail] 容器名
+docker logs -tf --tail 0 dc1
+#查看容器进程
+docker top dc1
+#查看容器：
+docker ps 
+docker ps -a -l -q只显示编号 -n 3上3条启动信息
+docker inspect {id/name} 查看容器内部细节
+```shell
+#启动交互式容器
+docker run -it ubuntu /bin/bash
+--name=container01
+
+#附加到交互式容器
+docker attach {name}
+#查看容器：
+docker ps 
+docker ps -a -l -q只显示编号 -n 3上3条启动信息
+#最新
+-l
+
+#重新启动已停止容器
+docker start [-i] 容器名
+#删除已经停止容器
+docker rm [容器名]
+```
+
+```shell
+#启动守护式容器
+docker run --name dc1 -d ubuntu /bin/sh -c "while true;do echo hello world;sleep 2;done"
+#查看容器日志
+docker logs [-f] [-t] [--tail] 容器名
+docker logs -tf --tail 0 dc1
+#查看容器进程
+docker top dc1
+#在运行中容器进行多个进程
+docker exec -i -t dc1 /bin/bash
+#停止守护式容器
+docker stop 容器名
+docker kill 容器名
+```
+
+Nginx部署流程
+
+1. 创建映射80端口的交互式容器
+2. 安装Nginx
+3. 安装文本编辑器vim
+4. 创建静态页面
+5. 修改Nginx配置文件
+6. 运行Nginx
+7. 验证网站访问
+
+```shell
+#设置容器的端口映射
+docker run -p 80 --name web -i -t ubuntu /bin/bash
+apt-get install -y nginx
+apt-get install -y vim
+mkdir -p /var/www/html
+cd /var/www/html
+vim index.html
+whereis nginx
+ls /etc/nginx/sites-enabled
+vim default
+改root /var/www/html
+#查看端口映射情况
+docker port web
+curl http://ip:映射端口
+docker inspect看IPAddress
+#启动（重启容器时ip和端口可能变化）
+docker exec web nginx
+```
+
+**xmind**

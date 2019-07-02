@@ -1340,10 +1340,10 @@ Negative matches:（没有启动，没有匹配成功的自动配置类）
 
 
 
-# 4. 三.SpringBoot日志
+# 4. SpringBoot日志
 
 
-## 4.1. 1.日志框架
+## 4.1. 日志框架
 
  小张；开发一个大型系统；
 
@@ -1385,9 +1385,9 @@ SpringBoot：底层是Spring框架，Spring框架默认是用JCL；‘
 
 
 
-## 4.2. 2.SLF4j使用
+## 4.2. SLF4j使用
 
-### 4.2.1. 1.如何在系统中使用SLF4j   https://www.slf4j.org
+### 4.2.1. 如何在系统中使用SLF4j   https://www.slf4j.org
 
 以后开发的时候，日志记录方法的调用，不应该来直接调用日志的实现类，而是调用日志抽象层里面的方法；
 
@@ -1411,7 +1411,7 @@ public class HelloWorld {
 
 每一个日志的实现框架都有自己的配置文件。使用slf4j以后，**配置文件还是做成日志实现框架自己本身的配置文件；**
 
-### 4.2.2. 2.遗留问题
+### 4.2.2. 遗留问题
 
 a（slf4j+logback）: Spring（commons-logging）. Hibernate（jboss-logging）. MyBatis. xxxx
 
@@ -1429,7 +1429,7 @@ a（slf4j+logback）: Spring（commons-logging）. Hibernate（jboss-logging）.
 
 
 
-## 4.3. 3.SpringBoot日志关系
+## 4.3. SpringBoot日志关系
 
 ```xml
 		<dependency>
@@ -1493,9 +1493,9 @@ public abstract class LogFactory {
 
 **==SpringBoot能自动适配所有的日志，而且底层使用slf4j+logback的方式记录日志，引入其他框架的时候，只需要把这个框架依赖的日志框架排除掉即可；==**
 
-## 4.4. 4.日志使用；
+## 4.4. 日志使用；
 
-### 4.4.1. 1.默认配置
+### 4.4.1. 默认配置
 
 SpringBoot默认帮我们配置好了日志；
 
@@ -1557,7 +1557,7 @@ logging.pattern.file=%d{yyyy-MM-dd} === [%thread] === %-5level === %logger{50} =
 | 指定文件名        | (none)       | my.log   | 输出日志到my.log文件           |
 | (none)       | 指定目录         | /var/log | 输出到指定目录的 spring.log 文件中 |
 
-### 4.4.2. 2.指定配置
+### 4.4.2. 指定配置
 
 给类路径下放上每个日志框架自己的配置文件即可；SpringBoot就不使用他默认配置的了
 
@@ -1609,7 +1609,7 @@ logback.xml：直接就被日志框架识别了；
 
  `no applicable action for [springProfile]`
 
-## 4.5. 5.切换日志框架
+## 4.5. 切换日志框架
 
 可以按照slf4j的日志适配图，进行相关的切换；
 
@@ -1665,11 +1665,11 @@ slf4j+log4j的方式；
 -----------------
 
 
-# 5. 四.SpringBoot与Web开发
+# 5. SpringBoot与Web开发
 
 Thymeleaf . web定制. 容器定制
 
-## 5.1. 1.使用SpringBoot；
+## 5.1. 使用SpringBoot；
 
 1）创建SpringBoot应用，选中我们需要的模块；
 
@@ -1688,7 +1688,7 @@ xxxxProperties:配置类来封装配置文件的内容；
 
 ```
 
-## 5.2. 2.SpringBoot对静态资源的映射规则
+## 5.2. SpringBoot对静态资源的映射规则
 
 
 
@@ -1807,7 +1807,7 @@ localhost:8080/ 找index页面
 
 4）所有的**/favicon.ico都是在静态资源文件下找；
 
-## 5.3. 3.模板引擎
+## 5.3. 模板引擎
 
 JSP Velocity Freemarker Thymeleaf
 
@@ -1817,11 +1817,11 @@ SpringBoot推荐的Thymeleaf
 
 语法更简单，功能更强大
 
-### 5.3.1. ①FreeMarker
+### 5.3.1. FreeMarker
 
-### 5.3.2. ②thymeleaf
+### 5.3.2. thymeleaf
 
-#### 5.3.2.1. 1.引入thymeleaf
+#### 5.3.2.1. 引入thymeleaf
 
 ```xml
  <!--        引入thymeleaf-->
@@ -1846,7 +1846,7 @@ SpringBoot推荐的Thymeleaf
 		<thymeleaf-layout-dialect.version>2.2.2</thymeleaf-layout-dialect.version>
   </properties>
 ```
-#### 5.3.2.2. 2.thymeleaf使用&语法
+#### 5.3.2.2. thymeleaf使用&语法
 
 ```java
 @ConfigurationProperties(prefix = "spring.thymeleaf")
@@ -1889,7 +1889,7 @@ public class ThymeleafProperties {
 ```
 
 
-#### 5.3.2.3. 3.语法规则
+#### 5.3.2.3. 语法规则
 
 1）th:text改变当前元素里面的文本内容；
 
@@ -1977,7 +1977,7 @@ Special tokens:（）
 [()]和th:utext功能相同
 
 
-## 5.4. 4.SpringMVC自动配置
+## 5.4. SpringMVC自动配置
 
 https://docs.spring.io/spring-boot/docs/1.5.10.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications
 
@@ -2042,7 +2042,7 @@ If you want to keep Spring Boot MVC features, and you just want to add additiona
 
 If you want to take complete control of Spring MVC, you can add your own `@Configuration` annotated with `@EnableWebMvc`.
 
-### 5.4.2. 2.扩展SpringMVC
+### 5.4.2. 扩展SpringMVC
 
 ```xml
     <mvc:view-controller path="/hello" view-name="success"/>
@@ -2105,7 +2105,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 ​	效果：SpringMVC的自动配置和我们的扩展配置都会起作用；
 
-### 5.4.3. 3.全面接管SpringMVC；
+### 5.4.3. 全面接管SpringMVC；
 
 SpringBoot对SpringMVC的自动配置不需要了，所有都是我们自己配置；所有的SpringMVC的自动配置都失效了~~@EnableWebMvc~~
 
@@ -2165,7 +2165,7 @@ public class WebMvcAutoConfiguration {
 
 
 
-## 5.5. 5.如何修改SpringBoot的默认配置
+## 5.5. 如何修改SpringBoot的默认配置
 
 模式：
 
@@ -2175,9 +2175,9 @@ public class WebMvcAutoConfiguration {
 
 ​	3）在SpringBoot中会有很多的xxxCustomizer帮助我们进行定制配置
 
-## 5.6. 6.RestfulCRUD
+## 5.6. RestfulCRUD
 
-### 5.6.1. ①默认访问首页
+### 5.6.1. 默认访问首页
 
 ```java
 
@@ -2209,7 +2209,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 ```
 
-### 5.6.2. ②国际化
+### 5.6.2. 国际化
 
 **1）编写国际化配置文件；**
 
@@ -2221,13 +2221,13 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
 #### 5.6.2.1. 步骤
 
-1）编写国际化配置文件，抽取页面需要显示的国际化消息
+##### 5.6.2.1.1. 编写国际化配置文件，抽取页面需要显示的国际化消息
 
 ![](springboot_res/搜狗截图20180211130721.png)
 
 
 
-2）SpringBoot自动配置好了管理国际化资源文件的组件；
+##### 5.6.2.1.2. SpringBoot自动配置好了管理国际化资源文件的组件；
 
 ```java
 @ConfigurationProperties(prefix = "spring.messages")
@@ -2262,7 +2262,7 @@ public class MessageSourceAutoConfiguration {
 
 
 
-3）去页面获取国际化的值；
+##### 5.6.2.1.3. 去页面获取国际化的值；
 
 ![](springboot_res/搜狗截图20180211134506.png)
 
@@ -2331,7 +2331,7 @@ public class MessageSourceAutoConfiguration {
 默认的就是根据请求头带来的区域信息获取Locale进行国际化
 ```
 
-4）点击链接切换国际化
+##### 5.6.2.2.1. 点击链接切换国际化
 
 ```java
 /**
@@ -2367,7 +2367,7 @@ public class MyLocaleResolver implements LocaleResolver {
 ```
 
 
-### 5.6.3. ③登陆
+### 5.6.3. 登陆
 
 开发期间模板引擎页面修改以后，要实时生效
 
@@ -2390,7 +2390,7 @@ spring.thymeleaf.cache=false
 
 
 
-### 5.6.4. ④拦截器进行登陆检查
+### 5.6.4. 拦截器进行登陆检查
 
 拦截器
 
@@ -2459,11 +2459,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     }
 ```
 
-### 5.6.5. ⑤CRUD-员工列表
+### 5.6.5. CRUD-员工列表
 
 实验要求：
 
-1）RestfulCRUD：CRUD满足Rest风格；
+#### 5.6.5.1. RestfulCRUD：CRUD满足Rest风格；
 
 URI：  /资源名称/资源标识       HTTP请求方式区分对资源CRUD操作
 
@@ -2474,7 +2474,7 @@ URI：  /资源名称/资源标识       HTTP请求方式区分对资源CRUD操�
 | 修改 | updateEmp?id=xxx&xxx=xx   | emp/{id}---PUT    |
 | 删除 | deleteEmp?id=1            | emp/{id}---DELETE |
 
-2）实验的请求架构;
+#### 5.6.5.2. 实验的请求架构;
 
 | 实验功能                             | 请求URI | 请求方式 |
 | ------------------------------------ | ------- | -------- |
@@ -2486,9 +2486,9 @@ URI：  /资源名称/资源标识       HTTP请求方式区分对资源CRUD操�
 | 修改员工                             | emp     | PUT      |
 | 删除员工                             | emp/1   | DELETE   |
 
-3）员工列表：
+#### 5.6.5.3. 员工列表：
 
-#### 5.6.5.1. thymeleaf公共页面元素抽取
+#### 5.6.5.4. thymeleaf公共页面元素抽取
 
 ```html
 1. 抽取公共片段
@@ -2570,7 +2570,7 @@ insert的公共片段在div标签中
 <div th:replace="commons/bar::#sidebar(activeUri='emps')"></div>
 ```
 
-### 5.6.6. 6）.CRUD-员工添加
+### 5.6.6. CRUD-员工添加
 
 添加页面
 
@@ -2623,7 +2623,7 @@ insert的公共片段在div标签中
 
 默认日期是按照/的方式；
 
-### 5.6.7. 7）. CRUD-员工修改
+### 5.6.7.  CRUD-员工修改
 
 修改添加二合一表单
 
@@ -2672,7 +2672,7 @@ insert的公共片段在div标签中
 </form>
 ```
 
-### 5.6.8. 8）. CRUD-员工删除
+### 5.6.8.  CRUD-员工删除
 
 ```html
 <tr th:each="emp:${emps}">
@@ -2702,15 +2702,15 @@ insert的公共片段在div标签中
 
 ## 5.7. 错误处理机制
 
-### 5.7.1. 1）. SpringBoot默认的错误处理机制
+### 5.7.1. SpringBoot默认的错误处理机制
 
 默认效果：
 
-​		1）. 浏览器，返回一个默认的错误页面![](springboot_res/搜狗截图20180226173408.png)
+#### 5.7.1.1. ​ 浏览器，返回一个默认的错误页面![](springboot_res/搜狗截图20180226173408.png)
 
   浏览器发送请求的请求头：![](springboot_res/搜狗截图20180226180347.png)
 
-​		2）. 如果是其他客户端，默认响应一个json数据![](springboot_res/搜狗截图20180226173527.png)
+#### 5.7.1.2. ​如果是其他客户端，默认响应一个json数据![](springboot_res/搜狗截图20180226173527.png)
 
 ​	![](springboot_res/搜狗截图20180226180504.png)
 
@@ -2810,7 +2810,7 @@ public class BasicErrorController extends AbstractErrorController {
 
 
 
-​	步骤：
+#### 5.7.1.3. ​步骤：
 
 ​		一但系统出现4xx或者5xx之类的错误；ErrorPageCustomizer就会生效（定制错误的响应规则）；就会来到/error请求；就会被**BasicErrorController**处理；
 
@@ -2830,9 +2830,9 @@ protected ModelAndView resolveErrorView(HttpServletRequest request,
 }
 ```
 
-### 5.7.2. 2）. 如果定制错误响应：
+### 5.7.2. 如果定制错误响应：
 
-#### 5.7.2.1. **1）. 如何定制错误的页面；**
+#### 5.7.2.1.  如何定制错误的页面；
 
 ​			**1）. 有模板引擎的情况下；error/状态码;** 【将错误页面命名为  错误状态码.html 放在模板引擎文件夹里面的 error文件夹下】，发生此状态码的错误就会来到  对应的页面；
 
@@ -2858,7 +2858,7 @@ protected ModelAndView resolveErrorView(HttpServletRequest request,
 
 
 
-#### 5.7.2.2. 2）. 如何定制错误的json数据；
+#### 5.7.2.2.  如何定制错误的json数据；
 
 ​		1）. 自定义异常处理&返回定制json数据；
 
@@ -2899,7 +2899,7 @@ public class MyExceptionHandler {
     }
 ```
 
-#### 5.7.2.3. 3）. 将我们的定制数据携带出去；
+#### 5.7.2.3.  将我们的定制数据携带出去；
 
 出现错误以后，会来到/error请求，会被BasicErrorController处理，响应出去可以获取的数据是由getErrorAttributes得到的（是AbstractErrorController（ErrorController）规定的方法）；
 
@@ -2937,7 +2937,7 @@ SpringBoot默认使用Tomcat作为嵌入式的Servlet容器；![](springboot_res
 
 问题？
 
-### 5.8.1. 1）. 如何定制和修改Servlet容器的相关配置；
+### 5.8.1. 如何定制和修改Servlet容器的相关配置；
 
 1. 修改和server有关的配置（ServerProperties【也是EmbeddedServletContainerCustomizer】）；
 
@@ -2969,7 +2969,7 @@ public EmbeddedServletContainerCustomizer embeddedServletContainerCustomizer(){
 }
 ```
 
-### 5.8.2. 2）. 注册Servlet三大组件【Servlet. Filter. Listener】
+### 5.8.2. 注册Servlet三大组件【Servlet. Filter. Listener】
 
 由于SpringBoot默认是以jar包的方式启动嵌入式的Servlet容器来启动SpringBoot的web应用，没有web.xml文件。
 
@@ -3038,7 +3038,7 @@ public ServletRegistrationBean dispatcherServletRegistration(
 
 2）. SpringBoot能不能支持其他的Servlet容器；
 
-### 5.8.3. 3）. 替换为其他嵌入式Servlet容器
+### 5.8.3. 替换为其他嵌入式Servlet容器
 
 
 
@@ -3100,7 +3100,7 @@ Undertow
 </dependency>
 ```
 
-### 5.8.4. 4）. 嵌入式Servlet容器自动配置原理；
+### 5.8.4. 嵌入式Servlet容器自动配置原理；
 
 
 
@@ -3655,6 +3655,7 @@ rm -rf /var/lib/docker/
 ### 6.4.1.  镜像操作
 
 ```shell
+#centOS7以后修改dameon.json文件
 vi /etc/sysconfig/docker
 OPTIONS=--registry-mirror=https://1234abcd.mirror.aliyuncs.com
 ```
@@ -3878,7 +3879,7 @@ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag --
 
 
 
-# 7. 六. SpringBoot与数据访问
+# 7. SpringBoot与数据访问
 
 ## 7.1. JDBC
 
@@ -4107,11 +4108,11 @@ http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/
 
 ## 7.4. 整合SpringData JPA
 
-### 7.4.1. 1）. SpringData简介
+### 7.4.1. SpringData简介
 
 ![](springboot_res/搜狗截图20180306105412.png)
 
-### 7.4.2. 2）. 整合SpringData JPA
+### 7.4.2. 整合SpringData JPA
 
 JPA:ORM（Object Relational Mapping）；
 
@@ -4156,7 +4157,7 @@ spring:
 
 
 
-# 8. 七. 启动配置原理
+# 8.  启动配置原理
 
 几个重要的事件回调机制
 
