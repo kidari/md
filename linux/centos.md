@@ -55,7 +55,7 @@
       
       0 */2 * * * /usr/sbin/ntpdate -u ntp.api.bz > /dev/null 2>&1; /sbin/hwclock -w
       #改时区
-      ```
+   ```
 
 
 # 2. 指令
@@ -389,27 +389,46 @@ sudo gpasswd -a ${USER} docker
 sudo service docker restart 
 ```
 ## 7.2. docker命令
-docker images  **--no-trunc**显示完整的镜像信息
-docker pull tomcat:latest
-docker rmi -f $(docker images -qa) 批量删除
-docker run -it {id/name} --name=mycentos0115 启动式交互
-docker run -d {id/name} 后台运行容器
-docker ps
-ctrl+P+Q
-docker attach {name}#附加到交互式容器 重新进入
-docker start 容器ID/name
+| 命令                                           | 说明                          |
+| ---------------------------------------------- | ----------------------------- |
+| docker images  **--no-trunc**                  | 显示完整的镜像信息            |
+| docker pull tomcat:latest                      |                               |
+| docker rmi -f $(docker images -qa)             | 批量删除                      |
+| docker run -it {id/name} --name=mycentos0115   | 启动交互式                    |
+| docker run -d {id/name}                        | 后台运行容器                  |
+| ctrl+P+Q                                       |                               |
+| docker attach {name}                           | 附加到交互式容器 重新进入     |
+| docker exec -t {name} ls -l /tmp               | 执行任务 不需要进入交互式容器 |
+| docker start 容器ID/name                       |                               |
+| docker rm {docker ps -qa}                      |                               |
+| docker ps -qa \| xargs docker rm               | 删除多个容器                  |
+| docker logs [-f] [-t] [--tail] 容器名          | 查看容器日志                  |
+| docker logs -tf --tail 0 dc1                   |                               |
+| docker top dc1                                 | 查看容器进程                  |
+| docker ps                                      | 查看容器：                    |
+| docker ps -a -l -q只显示编号 -n 3上3条启动信息 |                               |
+| docker inspect {id/name}                       | 查看容器内部细节              |
+| docker cp {id}:/temp/yum.log /root             | 从容器内拷贝文件到主机上      |
+|                                                |                               |
 
-docker ps -qa | xargs docker rm 删除多个容器
-docker rm {docker ps -qa}
-#查看容器日志
-docker logs [-f] [-t] [--tail] 容器名
-docker logs -tf --tail 0 dc1
-#查看容器进程
-docker top dc1
-#查看容器：
-docker ps 
-docker ps -a -l -q只显示编号 -n 3上3条启动信息
-docker inspect {id/name} 查看容器内部细节
+
+
+超频三S85超薄二热管带铜底85元
+gamemax小灵越
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```shell
 #启动交互式容器
 docker run -it ubuntu /bin/bash
