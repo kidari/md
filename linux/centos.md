@@ -389,34 +389,58 @@ sudo gpasswd -a ${USER} docker
 sudo service docker restart 
 ```
 ## 7.2. docker命令
-| 命令                                           | 说明                          |
-| ---------------------------------------------- | ----------------------------- |
-| docker images  **--no-trunc**                  | 显示完整的镜像信息            |
-| docker pull tomcat:latest                      |                               |
-| docker rmi -f $(docker images -qa)             | 批量删除                      |
-| docker run -it {id/name} --name=mycentos0115   | 启动交互式                    |
-| docker run -d {id/name}                        | 后台运行容器                  |
-| ctrl+P+Q                                       |                               |
-| docker attach {name}                           | 附加到交互式容器 重新进入     |
-| docker exec -t {name} ls -l /tmp               | 执行任务 不需要进入交互式容器 |
-| docker start 容器ID/name                       |                               |
-| docker rm {docker ps -qa}                      |                               |
-| docker ps -qa \| xargs docker rm               | 删除多个容器                  |
-| docker logs [-f] [-t] [--tail] 容器名          | 查看容器日志                  |
-| docker logs -tf --tail 0 dc1                   |                               |
-| docker top dc1                                 | 查看容器进程                  |
-| docker ps                                      | 查看容器：                    |
-| docker ps -a -l -q只显示编号 -n 3上3条启动信息 |                               |
-| docker inspect {id/name}                       | 查看容器内部细节              |
-| docker cp {id}:/temp/yum.log /root             | 从容器内拷贝文件到主机上      |
-|                                                |                               |
+| 命令                                                         | 说明                                                      |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| docker images  **--no-trunc**                                | 显示完整的镜像信息                                        |
+| docker pull tomcat:latest                                    |                                                           |
+| docker rmi -f $(docker images -qa)                           | 批量删除                                                  |
+| docker run -it {id/name} --name=mycentos0115                 | 启动交互式                                                |
+| docker run -d {id/name}                                      | 后台运行容器                                              |
+| ctrl+P+Q                                                     |                                                           |
+| docker attach {name}                                         | 附加到交互式容器 重新进入                                 |
+| docker exec -t {name} ls -l /tmp                             | 执行任务 不需要进入交互式容器                             |
+| docker start 容器ID/name                                     |                                                           |
+| docker rm {docker ps -qa}                                    |                                                           |
+| docker ps -qa \| xargs docker rm                             | 删除多个容器                                              |
+| docker logs [-f] [-t] [--tail] 容器名                        | 查看容器日志                                              |
+| docker logs -tf --tail 0 dc1                                 |                                                           |
+| docker top dc1                                               | 查看容器进程                                              |
+| docker ps                                                    | 查看容器：                                                |
+| docker ps -a -l -q只显示编号 -n 3上3条启动信息               |                                                           |
+| docker inspect {id/name}                                     | 查看容器内部细节                                          |
+| docker cp {id}:/temp/yum.log /root                           | 从容器内拷贝文件到主机上                                  |
+| docker run -it -p 8080:8080 <br/>docker exec -it {id} /bin/bash |                                                           |
+| docker commit -a="zuozhe" -m="tomcat without docs" {id}  mytomcat:1.2 | "提交的描述信息" "作者" 容器ID要创建的目标镜像名:[标签名] |
+|                                                              |                                                           |
 
 
 
-超频三S85超薄二热管带铜底85元
-gamemax小灵越
+容器数据卷:
 
+1. docker cp
 
+2. docker run -it -v /宿主机绝对路径目录:/容器内目录   {name}
+
+   docker run -it centos /bin/bash
+
+   
+
+容器的持久化
+
+容器间继承+共享数据
+
+```mermaid
+graph LR
+A[数据卷] -->B(容器内添加)
+    B -->D[直接命令添加]
+    	D -->D1[命令]
+    	D -->D2[inspect查看数据卷是否挂载成功]
+    	D -->D3[容器和宿主机之间数据共享]
+    	D -->D4[命令]
+    B -->E[DockerFile添加]
+    B -->F[备注]
+
+```
 
 
 
