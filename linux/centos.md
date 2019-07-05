@@ -423,6 +423,11 @@ sudo service docker restart
 
    docker run -it centos /bin/bash
 
+docker run -it --name {name} --volumes-from {name} {image}
+数据卷的生命周期一直持续至没有容器使用为止
+
+   
+
    
 
 容器的持久化
@@ -431,24 +436,93 @@ sudo service docker restart
 
 ```mermaid
 graph LR
-A[数据卷] -->B(容器内添加)
-    B -->D[直接命令添加]
-    	D -->D1[命令]
-    	D -->D2[inspect查看数据卷是否挂载成功]
-    	D -->D3[容器和宿主机之间数据共享]
-    	D -->D4[命令]
-    B -->E[DockerFile添加]
-    B -->F[备注]
+O[数据卷] -->B1(容器内添加)
+    B1 -->D[直接命令添加]
+        D -->D1[命令]
+        D -->D2[inspect查看数据卷是否挂载成功]
+        D -->D3[容器和宿主机之间数据共享]
+        D -->D4[容器停止主机修改后数据同步]
+       	D -->D5[命令带权限] 
+        
+    B1 -->E[DockerFile添加]
+    B1 -->F[备注]
+    
+P[数据卷容器] -->B2[数据的传递依赖]
 
 ```
 
 
 
+1. 手动编写一个dockerfile文件，当然，必须要符合file的规范
+2. 有这个文件后，直接docker build命令执行，获得一个自定义的镜像
+3. run
 
+>maven build
+>
+>jar
+>
+>java -jar mession...
 
+### Dockerfile 
 
+是用来构建docker镜像的构建文件，是由一系列命令和参数构成的脚本。
 
+#### 构建三步骤 
 
+1. 编写dockerfile文件 
+2. docker build
+3. docker run
+
+#### dockerfile构建过程解析
+
+docker run -it centos /bin/bash
+
+#### dockerfile内容基础知识
+
+1. 每条保留字指令都必须为大写字母且后面要跟随至少一个参数
+2. 指令按照从上到下，顺序执行
+3. \#表示注释
+4. 每条指令都会创建一个新的镜像层，并对镜像进行提交
+
+#### docker执行dockerfile的大致流程
+
+1. docker从基础镜像运行一个容器
+2. 执行一条指令并对容器作出修改
+3. 执行类似docker commit的操作提交一个新的镜像层
+4. docker再基于刚提交的镜像运行一个新容器
+5. 执行dockerfile中的下一条指令知道所有指令都执行完成
+
+> 从应用软件的角度来看，dockerfile、docker镜像与docker容器分别代表软件的三个不同阶段
+>
+> - dockerfile是软件的原材料
+> - docker镜像是软件的交付品
+> - docker容器则可以认为是软件的运行态
+
+#### dockerfile保留字指令
+
+|FROM|基础镜像，当前新镜像是基于哪个镜像的|
+
+|MAINTAINER|镜像维护者的姓名和邮箱地址
+
+|RUN|容器构建时需要运行的命令|
+
+|EXPOSE|暴露的端口号|
+
+|WORKDIR|指定在创建容器后，终端默认登录的进来工作目录，一个落脚点|
+
+|ENV|用来在构建镜像过程中设置环境变量|
+
+|ADD|拷贝加解压缩还会自动处理URL|
+
+|COPY|拷贝|
+
+|VOLUME|容器数据卷|
+
+|CMD|指定启动执行命令cmd会被docker run之后的参数替换|
+
+|ENTRYPOINT|同cmd 但会追加|
+
+|ONBUILD|当构建一个被继承的dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发|
 
 
 
