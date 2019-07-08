@@ -1,5 +1,3 @@
-
-
 # 1. Centos 7.2
 
 1. 设置允许连接网络： 
@@ -25,7 +23,11 @@
    yum install vim
    yum install ntpdate
    yum -y install lrzsz
+   yum -y install gcc
+   yum -y install gcc-c++
    ```
+卸载旧版本
+
 
 3. 换源 进入到/etc/yum.repos.d/目录：
    ```shell
@@ -55,6 +57,7 @@
       
       0 */2 * * * /usr/sbin/ntpdate -u ntp.api.bz > /dev/null 2>&1; /sbin/hwclock -w
       #改时区
+      SSDB(sequence similarity database)
    ```
 
 
@@ -463,28 +466,28 @@ P[数据卷容器] -->B2[数据的传递依赖]
 >
 >java -jar mession...
 
-### Dockerfile 
+### 7.2.1. Dockerfile 
 
 是用来构建docker镜像的构建文件，是由一系列命令和参数构成的脚本。
 
-#### 构建三步骤 
+#### 7.2.1.1. 构建三步骤 
 
 1. 编写dockerfile文件 
 2. docker build
 3. docker run
 
-#### dockerfile构建过程解析
+#### 7.2.1.2. dockerfile构建过程解析
 
 docker run -it centos /bin/bash
 
-#### dockerfile内容基础知识
+#### 7.2.1.3. dockerfile内容基础知识
 
 1. 每条保留字指令都必须为大写字母且后面要跟随至少一个参数
 2. 指令按照从上到下，顺序执行
 3. \#表示注释
 4. 每条指令都会创建一个新的镜像层，并对镜像进行提交
 
-#### docker执行dockerfile的大致流程
+#### 7.2.1.4. docker执行dockerfile的大致流程
 
 1. docker从基础镜像运行一个容器
 2. 执行一条指令并对容器作出修改
@@ -498,31 +501,106 @@ docker run -it centos /bin/bash
 > - docker镜像是软件的交付品
 > - docker容器则可以认为是软件的运行态
 
-#### dockerfile保留字指令
+#### 7.2.1.5. dockerfile保留字指令
 
+|||
+|----|----|
 |FROM|基础镜像，当前新镜像是基于哪个镜像的|
-
-|MAINTAINER|镜像维护者的姓名和邮箱地址
-
+|MAINTAINER|镜像维护者的姓名和邮箱地址|
 |RUN|容器构建时需要运行的命令|
-
 |EXPOSE|暴露的端口号|
-
 |WORKDIR|指定在创建容器后，终端默认登录的进来工作目录，一个落脚点|
-
 |ENV|用来在构建镜像过程中设置环境变量|
-
 |ADD|拷贝加解压缩还会自动处理URL|
-
 |COPY|拷贝|
-
 |VOLUME|容器数据卷|
-
 |CMD|指定启动执行命令cmd会被docker run之后的参数替换|
-
 |ENTRYPOINT|同cmd 但会追加|
-
 |ONBUILD|当构建一个被继承的dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发|
+
+```dockerfile
+from centos
+
+ENV mypath /tmp
+WORKDIR $mypath
+
+RUN yum -y install vim 
+RUN yum -y install net-tools
+
+EXPOSE 80
+
+CMD echo $MYPATH
+CMD echo "success--------ok"
+CMD /bin/bash
+```
+```shell
+docker build -f /mydocker/Dockerfile2 -t mycentos:1.3 .
+```
+
+entrypoint
+
+> docker run 之后的参数会被当做参数传递给ENTRYPOINT，之后
+
+以当前dockerfile build新镜像
+
+```shell
+docker images mycentos:1.3
+docker images mycentos
+docker run -it mycentos:1.3
+```
+
+ 
+
+```dockerfile
+FROM centos
+MAINTAINER GDZY<gdzy@126.com>
+#把宿主机当前上下文的c.txt拷贝到容器/usr/local/路径下
+COPY c.txt /usr/local/cincontainer.txt
+#把java与tomcat添加到容器中
+ADD jdk-8u171-linux-x64.tar.gz /usr/local/
+ADD apache-tomcat-9.0.8.tar.gz /usr/local/
+#安装vim编辑器
+RUN yum -y install vim
+#设置工作访问时候的WORKDIR路径，登录落脚点
+ENV MYPATH /usr/local
+WORKDIR $MYPATH
+#配置java与tomcat环境变量
+ENV JAVA_HOME /usr/local/jdk1.8.0_171
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.8
+ENV CATALINA_BASE /usr/local/apache-tomcat-9.0.8
+ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+#容器运行时监听的端口
+EXPOSE 8080
+#启动时运行tomcat
+#ENTARYPOINT ["/usr/local/apache-tomcat-9.0.8/bin/startup.sh"]
+#CMD ["/usr/local/apache-tomcat-9.0.8/bin/catalina.sh","run"]
+CMD /usr/local/apache-tomcat-9.0.8/bin/startup.sh && tail -F /usr/local/apache-tomcat-9.0.8/bin/logs/catalina.out
+
+```
+在当前路径有Dockerfile直接构建
+docker build -t zzyytomcat9 . 
+
+docker run -d -p 9080:8080 --name myt9 
+-v /zzyyuse/mydockerfile/tomcat9/test:/usr/local/apache-tomcat-9.0.8/webapps/test 
+-v /zzyyuse/mydockerfile/tomcat9/tomcat9logs/:/usr/local/apache-tomcat-9.0.8/logs 
+--privileged=true 
+zzyy tomcat9
+docker pull mysql:5.6
+docker exec {ID} sh -c ' exec mysqldump --all-databases -uroot -p"123456" ' > /zzyyuse/all-databases.sql
+
+docker pull redis:3.2
+docker run -p 6379:6379 
+-v /zzyyuse/myredis/data:/data
+-v /zzyyuse/myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+-d redis:3.2 redis-server /usr/local/etc/redis/redis.conf
+--appendonly yes
+
+docker commit -a zzyy -m "new mycentos1.4 with vim and ifconfig" {ID} mycentos:1.4
+
+
+
+
 
 
 
