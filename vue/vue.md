@@ -1641,7 +1641,7 @@ cnpm run build
 
 
 ### 1.6.8. Vue.js Ajax(axios)
-
+#### 1.6.8.1. test
 Vue.js 2.0 版本推荐使用 axios 来完成 ajax 请求。
 
 Axios 是一个基于 Promise 的 HTTP 库，可以用在浏览器和 node.js 中。
@@ -3059,13 +3059,13 @@ vm/组件对象
 
 ## 1.8. 自定义过滤器
 
-### 1.8.1. 1). 理解
+### 1.8.1.  理解
 
 ```
 对需要显示的数据进行格式化后再显示
 ```
 
-### 1.8.2. 2). 编码
+### 1.8.2.  编码
 
 ```
 1). 定义过滤器
@@ -3288,7 +3288,7 @@ vuex就是用来解决这个问题的
 
 ## 2.4. vuex的核心概念
 
-### 2.4.1. 1). state
+### 2.4.1.  state
 
 ```
 vuex管理的状态对象
@@ -3298,7 +3298,7 @@ const state = {
 }
 ```
 
-### 2.4.2. 2). mutations
+### 2.4.2.  mutations
 
 ```
 包含多个直接更新state的方法(回调函数)的对象
@@ -3311,7 +3311,7 @@ const mutations = {
 }
 ```
 
-### 2.4.3. 3). actions
+### 2.4.3.  actions
 
 ```
 包含多个事件回调函数的对象
@@ -3325,7 +3325,7 @@ const actions = {
 }
 ```
 
-### 2.4.4. 4). getters
+### 2.4.4.  getters
 
 ```
 包含多个计算属性(get)的对象
@@ -3337,7 +3337,7 @@ const getters = {
 }
 ```
 
-### 2.4.5. 5). modules
+### 2.4.5.  modules
 
 ```
 包含多个module
@@ -3345,7 +3345,7 @@ const getters = {
 与一个组件(包含有共享数据)对应
 ```
 
-### 2.4.6. 6). 向外暴露store对象
+### 2.4.6.  向外暴露store对象
 
 ```
 export default new Vuex.Store({
@@ -3356,7 +3356,7 @@ export default new Vuex.Store({
 })
 ```
 
-### 2.4.7. 7). 组件中:
+### 2.4.7.  组件中:
 
 ```
 import {mapGetters, mapActions} from 'vuex'
@@ -3368,7 +3368,7 @@ export default {
 {{mmm}} @click="zzz(data)"
 ```
 
-### 2.4.8. 8). 映射store
+### 2.4.8.  映射store
 
 ```
 import store from './store'
@@ -3377,7 +3377,7 @@ new Vue({
 })
 ```
 
-### 2.4.9. 9). store对象
+### 2.4.9.  store对象
 
 ```
 1.所有用vuex管理的组件中都多了一个属性$store, 它就是一个store对象
@@ -3390,9 +3390,9 @@ new Vue({
 
 ## 2.5. 将vuex引到项目中
 
-### 2.5.1. 1). 下载: npm install vuex --save
+### 2.5.1.  下载: npm install vuex --save
 
-### 2.5.2. 2). 使用vuex
+### 2.5.2.  使用vuex
 
 ```
 1.store.js
@@ -3412,7 +3412,7 @@ new Vue({
 ```
 
 # 3. VueSource准备
-## 3.1. 1.vueSource
+## 3.1. vueSource
 
 ```
 1.[].slice.call(lis): 将伪数组转换为真数组
@@ -3540,7 +3540,7 @@ new Vue({
 
 # 4. vue脚手架 
 
-## 4.1. 1.vue-cli
+## 4.1. vue-cli
 
     用来创建vue项目的工具包
     创建项目:

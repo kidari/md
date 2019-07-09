@@ -597,7 +597,8 @@ docker run -p 6379:6379
 --appendonly yes
 
 docker commit -a zzyy -m "new mycentos1.4 with vim and ifconfig" {ID} mycentos:1.4
-
+把war包丢到宿主机 在丢到container里面丢到tomcat/webapps
+docker cp NginxDemo.war {ID} :/usr/local/tomcat/webapps
 
 
 
