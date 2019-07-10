@@ -1,4 +1,4 @@
-IOC（inversion of control)
+# 1. IOC（inversion of control)
 
 反转资源获取的方向，传统的资源查找方式，要求组件向容器发起请求查找资源。作为回应，容器适时的返回资源。而应用了IOC之后，则是容器主动地将资源推送给它所管理的组件，组件所要做的仅是选择一种合适的方式来接受资源。
 DI(Dependency Injection)-IOC的另一种表达方式：即组件以一些预先定义好的方式(例如：setter方式)接受来自容器的资源注入。相对IOC而言，这种表述更直接
@@ -9,8 +9,9 @@ Spring提供了两种类型的IOC容器实现
 - BeanFactory是Spring框架的基础设施，面向Spring本身；ApplicationContext面向使用Spring框架的开发者，几乎所有的应用场合都直接使用ApplicationContext
 
 ClassPathXmlApplicationContext是ApplicationContext接口的实现类，该实现类从以下
+## 1.1. ApplicationContext
 
-### 依赖注入的方式
+### 1.1.1. 依赖注入的方式
 
 spring支持3中依赖注入的方式
 
@@ -33,13 +34,13 @@ spring支持3中依赖注入的方式
 
 测试赋空值<null/>
 
-### 集合属性
+### 1.1.2. 集合属性
 
 •Java.util.Map 通过 **<map>** 标签定义, <map> 标签里可以使用多个 **<entry>** 作为子标签. 每个条目包含一个键和一个值. 
 
 •必须在 **<key>** 标签里定义键
 
-•因为键和值的类型没有限制, 所以可以自由地为它们指定 **<value>, <ref>, <bean>** **或** **<null>** 元素. 
+•因为键和值的类型没有限制, 所以可以自由地为它们指定 <value>, <ref>, <bean> 或 <null> 元素. 
 
 •可以将 Map 的键和值作为 <entry> 的属性定义: 简单常量使用 key 和 value 来定义; Bean 引用通过 key-ref 和 value-ref 属性定义
 
@@ -75,7 +76,7 @@ spring支持3中依赖注入的方式
     </bean>
 ```
 
-### 使用 utility scheme 定义集合
+### 1.1.3. 使用 utility scheme 定义集合
 
 使用基本的集合标签定义集合时, 不能将集合作为独立的 Bean 定义, 导致其他 Bean 无法引用该集合, 所以无法在不同 Bean 之间共享集合
 
@@ -126,7 +127,7 @@ byName(根据名称自动装配): 必须将目标 Bean 的名称和属性名设�
     </bean>
 ```
 
-### Bean的生命周期
+### 1.1.4. Bean的生命周期
 
 - Spring IOC 容器可以管理 Bean 的生命周期, Spring 允许在 Bean 生命周期的特定点执行定制的任务
 - Spring IOC 容器对 Bean 的生命周期进行管理的过程:
@@ -194,7 +195,7 @@ public static void main(String[] args) {
 
 
 
-## **@Param注解的使用和解析**
+## 1.2. @Param注解的使用和解析
 
 **作用：**用注解来简化xml配置的时候（比如Mybatis的Mapper.xml中的sql参数引入），**@Param注解的作用是给参数命名**,参数命名后就能根据名字得到参数值,正确的将参数传入sql语句中（一般通过#{}的方式，${}会有sql注入的问题）。
 
@@ -230,7 +231,7 @@ Mapper接口方法：
 
 
 
-## 新建springboot
+## 1.3. 新建springboot
 
  新建springboot项目有三种方式
 
@@ -322,7 +323,7 @@ Datatables是一款jquery表格插件。
 
 
 
-##  [**@Component注解的解析**](https://www.cnblogs.com/clwydjgs/p/9255083.html)
+## 1.4. [@Component注解的解析](https://www.cnblogs.com/clwydjgs/p/9255083.html)
 
 今天在写程序的时候看见一个以前没有见过的注解（@Component），在网上查找过后，经过实践，决定把它记录下来。
 
@@ -368,7 +369,7 @@ Datatables是一款jquery表格插件。
 
  
 
-##  Maven 那点事儿（转）
+## 1.5. Maven 那点事儿（转）
 
 0. 前言
 
@@ -734,7 +735,7 @@ Maven 使 Java 开发更加规范化与自动化，其实 Maven 那点事远远�
 
  
 
-## Struts
+## 1.6. Struts
 
 Alt+/ 自动补全 
 
@@ -877,15 +878,7 @@ creamily Mildred blandness
 5. 普通Action的类要求返回string类型
 6. RequestAware SessionAware ApplicationAware接口来访问Map类型的request session application对象（request放入Map类型通过put方法）
 
-![img](springMVC_res/%E7%BB%98%E5%9B%BE1.png)
-
-
-
-![绘图1.vsdx](springMVC_res/attachment.png)
-
-
-
-
+![img](springMVC_res/绘图1.png)
 
 建一个struts工程：
 
@@ -908,15 +901,9 @@ long.toString()
 
 
 
+![img](springMVC_res/绘图2.png)
 
 
-![img](springMVC_res/%E7%BB%98%E5%9B%BE2.png)
-
-
-
-![绘图2.vsdx](springMVC_res/attachment.png)
-
- 
 
  ##  Java事务处理总结
 
@@ -984,7 +971,7 @@ XA 连接与非 XA 连接不同。一定要记住 XA 连接参与了 JTA 事务�
 
 事务控制是构建J2EE应用不可缺少的一部分，合理选择应用何种事务对整个应用系统来说至关重要。一般说来，在单个JDBC 连接连接的情况下可以选择JDBC事务，在跨多个连接或者数据库情况下，需要选择使用JTA事务，如果用到了EJB，则可以考虑使用EJB容器事务。
 
-## [**详细的正则表达式**](https://www.cnblogs.com/clwydjgs/p/9366883.html)
+## 1.7. [详细的正则表达式](https://www.cnblogs.com/clwydjgs/p/9366883.html)
 
 只能输入数字："^[0-9]*$"。
 
@@ -1276,7 +1263,7 @@ x|y
 
 
 
-## [**ArrayMap和HashMap区别**](https://www.cnblogs.com/clwydjgs/p/9185574.html)
+## 1.8. [ArrayMap和HashMap区别](https://www.cnblogs.com/clwydjgs/p/9185574.html)
 
 **什么是Map？**
 
@@ -1353,9 +1340,9 @@ ArrayMap应用场景
 - 1.数据量不大，最好在千级以内
 - 2.数据结构类型为Map类型
 
-## CA
+## 1.9. CA
 
-![img](springMVC_res/%E6%8E%88%E6%9D%83%E4%B8%AD%E5%BF%83as.png)
+![img](springMVC_res/授权中心AS.png)
 
 数字签名：用发送方私钥加密的文件摘要
 
@@ -1403,7 +1390,7 @@ void sort(int[] array,int low,int high){
 
 
 
-## ==**java语言核心**==
+## 1.10. java语言核心
 |提纲|内容|
 | -------------------- | ---------------------------------------- |
 | java与数据库交互技术 | sql与pl/sql的使用                        |
