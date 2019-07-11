@@ -103,8 +103,19 @@ GenerateAllSetter当你进行对象之间赋值的时候，你会发现好麻烦
 
 CodeGlance迷你缩放图
 
-
-
+|                       |                     |
+| --------------------- | ------------------- |
+| GenerateAllSetter     |                     |
+| vue                   |                     |
+| RestfulToolkit        | ctrl+\              |
+| CamelCase             | shift+alt+U         |
+| Alibaba Cloud Toolkit |                     |
+| Key promoter          |                     |
+| Free Mybatis plugin   |                     |
+| MyBatis Log Plugin    |                     |
+| IdeaVim               | ctrl+alt+v ctrl+w+v |
+| Key Promoter X        |                     |
+| AceJump               |                     |
 1.maven配置
 
 2.encoding utf—8
