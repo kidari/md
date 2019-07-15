@@ -164,5 +164,8 @@ email地址:finegrained@qq.com
 签名和github无关
 仓库级别:仅在本地库范围有效
 系统用户级别:登录当前操作系统用户的范围
+GitHub Token: 6ab5c9622041ac987c9cda5d0d369edb70d67af4
+GitHub Gist: 5f296bb5ca9aaefbb5e3a7b7e149a2ad
+idea Token: 7a732ba5c7ac22c94e0dcf345efc1731d53cf524
 ```
 
