@@ -3476,6 +3476,45 @@ new Vue({
       	5). 移除元素的指令属性
 
 ## 3.4. 数据劫持-->数据绑定
+```html
+<div id="app">
+
+	<ul v-for="value in object">
+    <label>
+    {{ value[0] }}
+    </label>
+		<input type="text" :placeholder="value[1]">
+	  </ul>
+  
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    object: {
+           "HeartBeatTime": [
+            "心跳周期时长",
+            "11",
+            "分钟"
+        ],
+        "RetransmissionCounts": [
+            "重传次数",
+            "22",
+            "次"
+        ],
+        "SearchNetTime": [
+            "搜网周期时长",
+            "33",
+            "分钟"
+        ]
+    }
+  }
+})
+</script>
+</body>
+</html>
+```
 
 ```
 1.数据绑定(model==>View):
