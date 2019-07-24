@@ -1,4 +1,10 @@
 vim快捷键
+ideaSetting Gist:
+dd81af5ff72161be7fb365f5feb6e9ea1f6d6fbf
+Sync: 上传完成。
+Gist ID:c9f4d76550091b667cb6021c3c1d0e7f）
+GitHub Token: 08e7bd7879a903b82e5756cee890dbcddde36bf3）
+请复制这个 ID 并将其用于其他设备来下载配置。
 
 |       按键       |            操作             |
 | ---------------- | --------------------------- |
@@ -164,12 +170,5 @@ email地址:finegrained@qq.com
 签名和github无关
 仓库级别:仅在本地库范围有效
 系统用户级别:登录当前操作系统用户的范围
-GitHub Token: 
-3bd99cdc2bfc718f45548d423e8cc911151cea05
-GIST ID: 
-f5cc7afcf00a532fbb56067d3126007c
-idea Token: 
-53321569e7f41c190da9821f9119bb43f522b8d5
-01b50382c416ba6ed9ccc50aa6f6369bfaf22cdc
 ```
 

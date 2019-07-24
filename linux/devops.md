@@ -1,19 +1,3 @@
-vscode Git插件同步 
-Synchronization 
-alt shift+D download 
-alt shift+U upload 
-		
-GitHub Token: 
-`cfcdafd6a25731b3e031ad21c89a5a46e9afa7da` 
-GitHub Gist: 
-`7ee35d77b7fce32aa221a78a611e02dc` 
-GitHub Gist Type: Secret
-
-
-
-IDEA_LENOVO 
-`695d20e75da0dcb933b4afe307a7a6172bac267e`
-
 颜色`#3A4386`
 
 ```shell

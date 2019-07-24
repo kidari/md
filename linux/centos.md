@@ -673,3 +673,35 @@ docker exec web nginx
 ```
 
 **xmind**
+
+# 8. git
+
+0）安装依赖软件
+[root@uatjenkins01 ~]# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc
+[root@uatjenkins01 ~]# yum install  gcc perl-ExtUtils-MakeMaker
+ 
+1）卸载系统自带的底版本git（1.7.1）
+[root@uatjenkins01 ~]# git --version
+git version 1.7.1
+[root@uatjenkins01 ~]# yum remove git
+  
+2）编译安装最新的git版本
+[root@uatjenkins01 ~]# cd /usr/local/src/
+[root@uatjenkins01 src]# wget https://www.kernel.org/pub/software/scm/git/git-2.15.1.tar.xz
+[root@uatjenkins01 src]# tar -vxf git-2.15.1.tar.xz
+[root@uatjenkins01 src]# cd git-2.15.1
+[root@uatjenkins01 git-2.15.1]# make prefix=/usr/local/git all
+[root@uatjenkins01 git-2.15.1]# make prefix=/usr/local/git install
+[root@uatjenkins01 git-2.15.1]# echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/profile
+[root@uatjenkins01 git-2.15.1]# source /etc/profile
+  
+[root@uatjenkins01 ~]# git --version
+git version 2.15.1
+
+# 9. vscode
+
+C:\Users\fineg\.ssh\id_rsa
+1. ssh-keygen -t rsa -b 4096 -f C:\Users\fineg\.ssh\id_rsa
+2. ssh-copy-id -i id_rsa.pub 19.110.1.99
+
+

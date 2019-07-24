@@ -6,17 +6,17 @@ conda config --set auto_activate_base False
 
 
 
-# 玩转PyCharm
+# 1. 玩转PyCharm
 
 PyCharm是由JetBrains公司开发的提供给Python专业的开发者的一个集成开发环境，它最大的优点是能够大大提升Python开发者的工作效率，为开发者集成了很多用起来非常顺手的功能，包括代码调试、高亮语法、代码跳转、智能提示、自动补全、单元测试、版本控制等等。此外，PyCharm还提供了对一些高级功能的支持，包括支持基于Django框架的Web开发、。
 
-### PyCharm的安装
+### 1.1.1. PyCharm的安装
 
 可以在[JetBrains公司的官方网站]()找到PyCharm的[下载链接](https://www.jetbrains.com/pycharm/download/)，有两个可供下载的版本一个是社区版一个是专业版，社区版在[Apache许可证](https://zh.wikipedia.org/wiki/Apache%E8%AE%B8%E5%8F%AF%E8%AF%81)下发布，专业版在专用许可证下发布（需要购买授权下载后可试用30天），其拥有许多额外功能。安装PyCharm需要有JRE（Java运行时环境）的支持，如果没有可以在安装过程中选择在线下载安装。
 
 > 说明：如果你是一名学生，希望购买PyCharm来使用，可以看看[教育优惠官方申请指南](https://sales.jetbrains.com/hc/zh-cn/articles/207154369)。
 
-### 首次使用的设置
+### 1.1.2. 首次使用的设置
 
 第一次使用PyCharm时，会有一个导入设置的向导，如果之前没有使用PyCharm或者没有保存过设置的就直接选择“Do not import settings”进入下一步即可。
 
@@ -38,11 +38,11 @@ PyCharm是由JetBrains公司开发的提供给Python专业的开发者的一个�
 
 ![](python_res/pycharm-plugins.png)
 
-### 配置解析器，将PyCharm与Python环境连接起来
+### 1.1.3. 配置解析器，将PyCharm与Python环境连接起来
 
 File->Settings->Project Interpreter(Add Conda Environment python.exe)
 
-### 用PyCharm创建项目
+### 1.1.4. 用PyCharm创建项目
 
 点击上图中的“Start using PyCharm”按钮就可以开始使用PyCharm啦，首先来到的是一个欢迎页，在欢迎页上我们可以选择“创建新项目”、“打开已有项目”和“从版本控制系统中检出项目”。
 
@@ -60,9 +60,9 @@ File->Settings->Project Interpreter(Add Conda Environment python.exe)
 
 在工作窗口的右键菜单中可以找到“Run ...”和“Debug ...”菜单项，通过这两个菜单项我们就可以运行和调试我们的代码啦。建议关注一下菜单栏中的“Code”、“Refactor”和“Tools”菜单，这里面为编写Python代码提供了很多有用的帮助。
 
-### 创建Django项目
+### 1.1.5. 创建Django项目
 
-#### 专业版
+#### 1.1.5.1. 专业版
 
 PyCharm专业版提供了对Django、Flask、Google App Engine、web2py等Python Web框架以及SQL、UML、前端语言和框架、远程调试、虚拟化部署等功能的支持，如果使用PyCharm专业版，在创建项目时可以直接选择创建Django项目并设置模板语言以及放置模板页的文件夹。
 
@@ -72,7 +72,7 @@ PyCharm专业版提供了对Django、Flask、Google App Engine、web2py等Python
 
 ![](python_res/pycharm-prof-django-2.png)
 
-#### 社区版
+#### 1.1.5.2. 社区版
 
 PyCharm社区版只能创建Python项目，如果项目中需要Django的支持，可以自行安装依赖库并创建Django项目。
 
@@ -104,7 +104,7 @@ PyCharm社区版只能创建Python项目，如果项目中需要Django的支持�
 
 ![](python_res/pycharm-comm-django-6.png)
 
-###  优点
+### 1.1.6. 优点
 
 1. 方便的环境管理
   因为平时跑代码会有很多环境，结合Anaconda，会有tensorflow,pytorch, keras等等之类好的环境，Pycharm可以为当前项目指定环境，File→setting→Project Interpreter→ 选择自己的环境
@@ -130,7 +130,7 @@ PyCharm社区版只能创建Python项目，如果项目中需要Django的支持�
 
 4. Git管理
   可以通过File→ setting →Version Control 做版本控制，设置登录之后的Login 和 Password，之后可以很方便的commit.
-### 缺点
+### 1.1.7. 缺点
 - 刚开始打开，索引包较慢(写这篇博客时，打开Pycharm，电脑卡的要死中-_-)
   内存占用太高（电脑内存小的（4G），打开之后，内存直接占用70-80%）
 
@@ -140,7 +140,7 @@ PyCharm社区版只能创建Python项目，如果项目中需要Django的支持�
 
 ​        解决方案 右键文件夹，make_directory as --> sources path 将当前工作的文件夹加入source_path
 
-### Pycharm
+### 1.1.8. Pycharm
 
 PyCharm
 
@@ -450,7 +450,7 @@ Out[2]:
 
 语句后加？出现函数解释 l显示行号 m为markdown shift+enter运行
 
-### python
+### 1.1.9. python
 
 ```python
 
@@ -557,7 +557,7 @@ return self._score
 初始化函数中self后面实例对象属性，加下划线表示属性私有
 ```
 
-### Jupyter notebook使用说明
+### 1.1.10. Jupyter notebook使用说明
 
 pycharm
 
@@ -616,7 +616,7 @@ In [ ]表示一个代码cell，每个cell里写的是代码
 
 
 
-# DAY-11 文件和异常
+# 2. DAY-11 文件和异常
 
 在实际开发中，常常需要对程序中的数据进行[持久化](https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96)操作，而实现数据持久化最直接简单的方式就是将数据保存到文件中。说到“文件”这个词，可能需要先科普一下关于[文件系统](https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F)的知识，对于这个概念，维基百科上给出了很好的诠释，这里不再浪费笔墨。
 
@@ -636,7 +636,7 @@ In [ ]表示一个代码cell，每个cell里写的是代码
 
 ![](python_res/file-open-mode.png)
 
-### 读写文本文件
+### 2.1.1. 读写文本文件
 
 读取文本文件时，需要在使用`open`函数时指定好带路径的文件名（可以使用相对路径或绝对路径）并将文件模式设置为`'r'`（如果不指定，默认值也是`'r'`），然后通过`encoding`参数指定编码（如果不指定，默认值是None，那么在读取文件时使用的是操作系统默认的编码），如果不能保证保存文件时使用的编码方式与encoding参数指定的编码方式是一致的，那么就可能因无法解码字符而导致读取失败。下面的例子演示了如何读取一个纯文本文件。
 
@@ -763,7 +763,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### 读写二进制文件
+### 2.1.2. 读写二进制文件
 
 知道了如何读写文本文件要读写二进制文件也就很简单了，下面的代码实现了复制图片文件的功能。
 
@@ -786,7 +786,7 @@ if __name__ == '__main__':
     main()
 ```
 
-### 读写JSON文件
+### 2.1.3. 读写JSON文件
 
 通过上面的讲解，我们已经知道如何将文本数据和二进制数据保存到文件中，那么这里还有一个问题，如果希望把一个列表或者一个字典中的数据保存到文件中又该怎么做呢？答案是将数据以JSON格式进行保存。JSON是“JavaScript Object Notation”的缩写，它本来是JavaScript语言中创建对象的一种字面量语法，现在已经被广泛的应用于跨平台跨语言的数据交换，原因很简单，因为JSON也是纯文本，任何系统任何编程语言处理纯文本都是没有问题的。目前JSON基本上已经取代了XML作为异构系统间交换数据的事实标准。关于JSON的知识，更多的可以参考[JSON的官方网站](http://json.org)，从这个网站也可以了解到每种语言处理JSON数据格式可以使用的工具或三方库，下面是一个JSON的简单例子。
 
