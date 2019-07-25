@@ -700,8 +700,10 @@ git version 2.15.1
 
 # 9. vscode
 
-C:\Users\fineg\.ssh\id_rsa
+> IdentityFile  C:\Users\fineg\.ssh\id_rsa
 1. ssh-keygen -t rsa -b 4096 -f C:\Users\fineg\.ssh\id_rsa
 2. ssh-copy-id -i id_rsa.pub 19.110.1.99
-
-
+安装oh-my-zsh（自动）
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+> cat id_rsa.pub >> authorized_keys
+> authorized_keys
