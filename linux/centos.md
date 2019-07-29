@@ -671,7 +671,37 @@ docker inspect看IPAddress
 #启动（重启容器时ip和端口可能变化）
 docker exec web nginx
 ```
+#### ubuntu18.04安装docker
+开始安装doker
+由于apt官方库里的docker版本可能比较旧，所以先卸载可能存在的旧版本：
+sudo apt-get remove docker docker-engine docker-ce docker.io
+ 
 
+更新apt包索引：
+sudo apt-get update
+ 
+
+安装以下包以使apt可以通过HTTPS使用存储库（repository）：
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+ 
+
+添加Docker官方的GPG密钥：
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+ 
+
+这个时间点（2018.06.09），Ubuntu 18.04 LTS (Bionic Beaver) 对应的docker package is not available，所以只能通过下面的语句安装stable存储库
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu artful stable" 
+不能使用下面的语句，我就踩了很多坑，很多博客都推荐下面的语句，这样就会导出docker-ce安装不上
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+ 
+
+再更新一下apt包索引：
+sudo apt-get update
+ 
+
+安装最新版本的Docker CE：
+sudo apt-get install -y docker-ce
 **xmind**
 
 # 8. git
@@ -701,9 +731,19 @@ git version 2.15.1
 # 9. vscode
 
 > IdentityFile  C:\Users\fineg\.ssh\id_rsa
-1. ssh-keygen -t rsa -b 4096 -f C:\Users\fineg\.ssh\id_rsa
-2. ssh-copy-id -i id_rsa.pub 19.110.1.99
+
 安装oh-my-zsh（自动）
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+1. ssh-keygen -t rsa -b 4096 -f C:\Users\fineg\.ssh\id_rsa
+2. ssh-copy-id -i id_rsa.pub 19.110.1.99
 > cat id_rsa.pub >> authorized_keys
 > authorized_keys
+18.04默认root不开启ssh
+
+修改SSH配置文件
+
+ 　命令：sudo vim /etc/ssh/sshd_config，找到PermitRootLogin without-password 修改为PermitRootLogin yes
+
+重启SSH服务
+
+　命令：service ssh restart
