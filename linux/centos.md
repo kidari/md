@@ -671,7 +671,7 @@ docker inspect看IPAddress
 #启动（重启容器时ip和端口可能变化）
 docker exec web nginx
 ```
-#### ubuntu18.04安装docker
+#### 7.2.1.6. ubuntu18.04安装docker
 开始安装doker
 由于apt官方库里的docker版本可能比较旧，所以先卸载可能存在的旧版本：
 sudo apt-get remove docker docker-engine docker-ce docker.io

@@ -164,3 +164,130 @@ LSM树（Log-Structured Merge Tree）存储引擎
 
 vi /lib/systemd/system/docker.service
 ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375 \
+
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    #设置虚拟机的box
+    config.vm.box = "centos7"
+
+    config.vm.box_check_update = false
+    #设置虚拟机的主机名
+    config.vm.hostname = "centos7-01"
+
+    #设置主机与虚拟机的共享目录
+    #config.vm.synced_folder "./share", "/home/vagrant/share"
+    
+    #设置虚拟机IP地址Bridge模式
+    config.vm.network "public_network", ip: "172.16.40.200", bridge: "WLAN"
+    
+    #Virtualbox相关配置
+    config.vm.provider "virtualbox" do |v|
+        #设置虚拟机的名称
+        v.name = "centos701"
+
+        #设置虚拟机的内存大小为2G
+        v.memory = 2048
+
+        #设置虚拟机的CPU个数
+        v.cpus = 2
+    end
+
+    #使用shell脚本进行软件安装和配置
+    config.vm.provision "shell", inline: <<-SHELL
+        sudo yum -y install wget
+        
+        #  yum -y install lrzsz
+        #  yum -y install gcc
+        #  yum -y install gcc-c++
+        #使用阿里的centos源
+        sudo mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+        sudo wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+        #安装epel源
+        sudo yum list | grep epel-release
+        sudo yum install -y epel-release
+        sudo wget -O /etc/yum.repos.d/epel-7.repo http://mirrors.aliyun.com/repo/epel-7.repo
+        sudo yum clean all
+        sudo yum makecache
+        sudo yum repolist enabled
+        sudo yum -y update
+        #sudo yum repolist all
+   
+        #安装工具
+        #sudo yum -y install git
+        sudo yum -y install net-tools
+        sudo yum -y install vim
+        sudo yum -y install ntpdate
+        #安装git
+        sudo yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc
+        sudo yum -y install  gcc perl-ExtUtils-MakeMaker
+        sudo cd /usr/local/src/
+        sudo wget https://www.kernel.org/pub/software/scm/git/git-2.15.1.tar.xz
+        sudo tar -vxf git-2.15.1.tar.xz
+        sudo cd git-2.15.1
+        sudo make prefix=/usr/local/git all
+        sudo make prefix=/usr/local/git install
+        sudo echo "export PATH=$PATH:/usr/local/git/bin" >> /etc/profile
+        sudo source /etc/profile
+
+        #修改时区
+        sudo ntpdate 218.186.3.36
+        sudo timedatectl set-timezone Asia/Shanghai
+        sudo echo "0 */2 * * * /usr/sbin/ntpdate -u ntp.api.bz > /dev/null 2>&1; /sbin/hwclock -w" >> /var/spool/cron/root
+        
+        #安装docker
+        sudo wget -qO- https://get.docker.com | sh
+        sudo yum remove docker \
+                        docker-client \
+                        docker-client-latest \
+                        docker-common \
+                        docker-latest \
+                        docker-latest-logrotate \
+                        docker-logrotate \
+                        docker-selinux \
+                        docker-engine-selinux \
+                        docker-engine
+        sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+        sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+        sudo yum makecache fast
+        sudo yum -y install docker-ce
+        sudo echo '{    "registry-mirrors": ["https://czcjm3w6.mirror.aliyuncs.com"]  }'>>/etc/docker/daemon.json
+        #启动docker服务
+        sudo  systemctl daemon-reload
+        sudo systemctl start docker
+
+        #设置docker服务启动后自运行
+        sudo systemctl enable docker
+
+        #添加vagrant用户添加到docker权限组
+        sudo usermod -aG docker vagrant
+
+        #拉取ssdb镜像
+        sudo docker pull leobuskin/ssdb-docker
+        sudo docker run -itd --name testssdb -p 8888:8888 leobuskin/ssdb-docker
+
+        #清理包
+        sudo yum clean all
+
+    SHELL
+
+end
+```
+
+在Ubuntu中，你可以像这样从PPA获得 Qt 5.9：
+
+sudo add-apt-repository ppa:beineri/opt-qt591-trusty -y
+sudo apt-get update -qq
+sudo apt-get -y install qt59base qt59webengine
+sudo apt-get -y install qt59webchannel qt59svg qt59location qt59tools qt59translations
+source /opt/qt*/bin/qt*-env.sh
+然后像这样编译和安装VNote：
+
+cd vnote.git
+mkdir build
+cd build
+qmake ../VNote.pro
+make
+sudo make install
