@@ -1,6 +1,6 @@
 vim快捷键
 ideaSetting Gist:
-dd81af5ff72161be7fb365f5feb6e9ea1f6d6fbf
+b087153ca51db4f6c9d86a37adb49f8bdcb1556a
 Sync: 上传完成。
 Gist ID:c9f4d76550091b667cb6021c3c1d0e7f）
 GitHub Token: 08e7bd7879a903b82e5756cee890dbcddde36bf3）
