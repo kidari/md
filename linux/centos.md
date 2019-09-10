@@ -716,7 +716,7 @@ git version 1.7.1
 [root@uatjenkins01 ~]# yum remove git
   
 2）编译安装最新的git版本
-[root@uatjenkins01 ~]# cd /usr/local/src/
+[root@uatjenkins01 ~]# cd /usr/local/
 [root@uatjenkins01 src]# wget https://www.kernel.org/pub/software/scm/git/git-2.15.1.tar.xz
 [root@uatjenkins01 src]# tar -vxf git-2.15.1.tar.xz
 [root@uatjenkins01 src]# cd git-2.15.1
